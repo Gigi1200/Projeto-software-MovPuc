@@ -1,3 +1,8 @@
 # Projeto-software-MovPuc
-Projeto de software criação de um aplicativo relacionado as bikeseletricas na puc rio
-Grupo: Giovana Fernanda PIetro Rodrigo e Raphael
+Projeto pertencente ao Grupo 4 na matéria Projeto Integrado: Software.
+Integrantes:
+Giovana Pavanelli
+Maria Fernanda Piquet
+Pietro Maiolino
+Raphael Vincenzo
+Rodrigo Castro
