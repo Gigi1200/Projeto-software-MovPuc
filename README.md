@@ -1,6 +1,6 @@
 # Projeto-software-MovPuc
 Projeto pertencente ao Grupo 4 na matéria Projeto Integrado: Software.
-Integrantes:
+</br> Integrantes:
 Giovana Pavanelli
 Maria Fernanda Piquet
 Pietro Maiolino
