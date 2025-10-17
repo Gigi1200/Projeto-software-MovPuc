@@ -1,0 +1,106 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Figtree', 'DM Sans', sans-serif;
+  color: #222;
+  background: #f7faf9;
+  line-height: 1.5;
+}
+
+.cab {
+  background: #47d520;
+  height: 88px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(59, 155, 78, 0.18);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bike {
+  display: block;
+  width: 62px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.brand {
+  color: #fff;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.navlink {
+  color: #e7fff4;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.navlink:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.navlink.ativo {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.perfil {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 18px;
+  color: #3b9c77;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: transform 0.15s ease;
+}
+
+.perfil:hover {
+  transform: translateY(-1px);
+}
+
+.rodape {
+  border-top: 1px solid #e5e7eb;
+  background: #fff;
+  padding: 16px 24px 32px;
+}
+
+.rodape__links {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.rodape__links a {
+  color: #318c6b;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.rodape__links span {
+  color: #c4c4c4;
+  margin: 0 8px;
+}
