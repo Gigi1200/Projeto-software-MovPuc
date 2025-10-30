@@ -1,32 +1,17 @@
-Ativar as notificações na área de trabalho para o Gmail.
-   OK  Agora não(a)
-1 de 2.543
-paginas bicalhos
-Caixa de entrada
-
-Giovana Pavanelli
-Anexos
-21:43 (há 9 minutos)
-para mim
-
-
- 4 anexos
-  •  Verificados pelo Gmail
-
+ {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Controle de Bikes da PUC</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="cabEFoot.css">
-
+   <link rel="stylesheet" href="{% static 'app_usuarios/css/style.css' %}">
+   <link rel="stylesheet" href="{% static 'app_usuarios/css/cabEFoot.css' %}">
 </head>
 <body>
   <header class="cab">
     <div class="logo">
-      <img src="img/logo.png" class="bike" alt="">
+      <img src="{% static 'app_usuarios/img/logo.png' %}" alt="Logo">
       <p class="brand">MOVPUC</p>
     </div>
     <nav class="nav">
@@ -45,7 +30,7 @@ para mim
         <button class="btn">Ver vagas disponíveis</button>
       </div>
       <div class="hero__art">
-        <img src="img/person.png" alt="Pessoa andando de bicicleta">
+        <img src="{% static 'app_usuarios/img/person.png' %}" alt="Pessoa andando de bicicleta">
       </div>
     </section>
 
@@ -66,7 +51,7 @@ para mim
 
     <section class="how">
       <div class="mapa">
-        <img src="img/mapa.png" alt="mapa">
+        <img src="{% static 'app_usuarios/img/mapa.png' %}" alt="Mapa">
       </div>
       <div class="textos">
         <h2>Como funciona</h2>
