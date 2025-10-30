@@ -1,0 +1,96 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+body {
+  font-family: 'Figtree', 'DM Sans', sans-serif;
+  color: #222;
+  background: #f7faf9;
+  line-height: 1.5
+}
+
+
+
+.container {
+  max-width: 1100px;
+  margin: 28px auto 56px;
+  padding: 0 24px
+}
+
+.secao+.secao {
+  margin-top: 36px
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 14px
+}
+
+.criadores {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px 28px;
+  padding: 6px 2px
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .06);
+  transition: .15s
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .10), 0 0 0 6px rgba(59, 156, 119, 0.15)
+}
+
+.avatar {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, .08)
+}
+
+.nome {
+  font-weight: 600;
+  text-align: center
+}
+
+.texto {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  color: #374151;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .06)
+}
+
+@media(max-width:900px) {
+  .criadores {
+    grid-template-columns: repeat(2, 1fr)
+  }
+}
+
+@media(max-width:540px) {
+  .cab {
+    padding: 0 18px
+  }
+
+  .brand {
+    font-size: 1.4rem
+  }
+
+  .criadores {
+    grid-template-columns: 1fr
+  }
+}
