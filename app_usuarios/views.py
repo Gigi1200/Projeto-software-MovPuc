@@ -1,4 +1,38 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+def main_page(request):
+    return render(request, 'app_usuarios/index.html')
+
+@login_required(login_url='login')
+def reserva_bikes(request):
+    return render(request, 'app_usuarios/reservaBikes.html')
+
+@login_required(login_url='login')
+def main_alunos(request):
+    return render(request, 'app_usuarios/aluno.html')
+
+def sobre(request):
+    return render(request, 'app_usuarios/sobre.html')
+
+def contato(request):
+    return render(request, 'app_usuarios/contato.html')
+
+@login_required(login_url='login')
+def main_segurancas(request):
+    return render(request, 'app_usuarios/seguranca.html')
+
+@login_required(login_url='login')
+def scan(request):
+    return render(request, 'app_usuarios/scanBikes.html')
+
+@login_required(login_url='login')
+def scan_concluded_enter(request):
+    return render(request, 'app_usuarios/scanConcluded.html')
+
+@login_required(login_url='login')
+def scan_concluded_leave(request):
+    return render(request, 'app_usuarios/scanConcludedLeaving.html')
 
 # Create your views here.
 from django.shortcuts import render, redirect
@@ -22,8 +56,6 @@ def cadastro(request):
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .forms import CadastroForm, LoginForm
-
-
 
 def login_view(request):
     if request.method == "POST":
