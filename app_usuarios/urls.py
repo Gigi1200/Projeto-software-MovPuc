@@ -12,5 +12,6 @@ urlpatterns = [
     path('escanear/', views.scan, name='scan'),
     path('escanear/entering/', views.scan_concluded_enter, name='scan_con_ent'),
     path('escanear/leaving/', views.scan_concluded_leave, name='scan_con_lea'),
+    path('esqueci_senha/', views.EsqueciSenhaView.as_view(), name='esqueci_senha'),
     path('', views.main_page, name='index')
 ]

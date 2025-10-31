@@ -85,4 +85,4 @@ from .forms import EsqueciSenhaForm
 class EsqueciSenhaView(PasswordResetView):
     template_name = 'app_usuarios/esqueci_senha.html'
     form_class = EsqueciSenhaForm
-    success_url = reverse_lazy('login')  
+    success_url = reverse_lazy('login') 
