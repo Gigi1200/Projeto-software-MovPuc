@@ -5,22 +5,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contato • MOVPUC</title>
-  <link rel="stylesheet" href="static/contatos.css" />
-  <link rel="stylesheet" href="static/cabEFoot.css">
+  <link rel="stylesheet" href="/static/app_usuarios/css/contatos.css" />
+  <link rel="stylesheet" href="/static/app_usuarios/css/cabEFoot.css">
 
 </head>
 <body>
-<header>
-  <a href="index.html" class="logo">
-    <img src="static/img/logo.png" alt="Logo MOVPUC">
-  </a>
-
-  <div class="perfil">
-    <a href="#">aluno</a>
-    <a href="#">funcionário</a>
-    <a href="login.html" class="icon">👤</a>
-  </div>
-</header>
+  <header class="cab">
+    <div class="logo">
+      <img src="{% static 'app_usuarios/img/logo.png' %}" alt="Logo">
+      <p class="brand">MOVPUC</p>
+    </div>
+    <nav class="nav">
+      <a href="#" class="navlink">aluno</a>
+      <a href="#" class="navlink">funcionário</a>
+      <a href="login.html" class="perfil">👤</a>
+    </nav>
+  </header>
   <!-- Main -->
   <main>
     <section class="heading">
