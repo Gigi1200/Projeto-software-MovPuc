@@ -15,12 +15,12 @@
     <div class="pagina">
         <header class="cab">
             <div class="logo">
-                <img src="/static/app_usuarios/img/logo.png" class="bike" alt="MOVPUC">
+                <a href="{% url 'index' %}" ><img src="/static/app_usuarios/img/logo.png" class="bike" alt=""></a>
                 <p class="brand">MOVPUC</p>
             </div>
             <nav class="nav">
-                <a href="#" class="navlink ativo">aluno</a>
-                <a href="login.html" class="perfil">👤</a>
+                <a href="{% url 'aluno' %}" class="navlink ativo">aluno</a>
+                <a href="{% url 'login' %}" class="perfil">👤</a>
             </nav>
         </header>
         <div class="estacionamentos">
@@ -43,15 +43,13 @@
             </div>
 
         </div>
-        <footer class="rodape">
-            <nav class="rodape__links">
-                <a href="sobre.html">Sobre</a>
-                <span>·</span>
-                <a href="#">Suporte</a>
-                <span>·</span>
-                <a href="contato.html">Contato</a>
-            </nav>
-        </footer>
+  <footer class="rodape">
+    <nav class="rodape__links">
+      <a href="{% url 'sobre' %}">Sobre</a>
+      <span>·</span>
+      <a href="{% url 'contato' %}">Contato</a>
+    </nav>
+  </footer>
     </div>
 </body>
 

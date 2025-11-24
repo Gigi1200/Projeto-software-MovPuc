@@ -11,12 +11,12 @@
 <body>
   <header class="cab">
     <div class="logo">
-      <img src="{% static 'app_usuarios/img/logo.png' %}" alt="Logo">
+      <a href="{% url 'index' %}" ><img src="/static/app_usuarios/img/logo.png" class="bike" alt=""></a>
       <p class="brand">MOVPUC</p>
     </div>
     <nav class="nav">
-      <a href="#" class="navlink">aluno</a>
-      <a href="#" class="navlink">funcionário</a>
+      <a href="{% url 'aluno' %}" class="navlink">aluno</a>
+      <a href="{% url 'seguranca' %}" class="navlink">funcionário</a>
       <a href="{% url 'login' %}" class="perfil">👤</a>
     </nav>
   </header>
@@ -26,7 +26,7 @@
     <section class="hero">
       <div class="hero__text">
         <h1>Controles de Bikes da PUC</h1>
-        <p>Veja vagas, <a href="#">reserve sua bike</a> e acompanhe em tempo real.</p>
+        <p>Veja vagas, <a href="{% url 'reserva_bikes' %}">reserve sua bike</a> e acompanhe em tempo real.</p>
         <button class="btn">Ver vagas disponíveis</button>
       </div>
       <div class="hero__art">
@@ -65,13 +65,10 @@
   </main>
 
   <footer class="rodape">
-  <footer class="rodape">
     <nav class="rodape__links">
-      <a href="sobre.html">Sobre</a>
+      <a href="{% url 'sobre' %}">Sobre</a>
       <span>·</span>
-      <a href="#">Suporte</a>
-      <span>·</span>
-      <a href="contato.html">Contato</a>
+      <a href="{% url 'contato' %}">Contato</a>
     </nav>
   </footer>
 </body>

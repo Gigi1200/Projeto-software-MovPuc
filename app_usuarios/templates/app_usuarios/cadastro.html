@@ -11,13 +11,13 @@
 <body>
 
   <header class="cab">
-    <div class="logo">
-      <img src="{% static 'app_usuarios/img/logo.png' %}" class="bike" alt="logo MOVPUC">
-      <p class="brand">MOVPUC</p>
+   <div class="logo">
+   <a href="{% url 'index' %}" ><img src="/static/app_usuarios/img/logo.png" class="bike" alt=""></a>    
+   <p class="brand">MOVPUC</p>
     </div>
     <nav class="nav">
-      <a href="#" class="navlink">aluno</a>
-      <a href="#" class="navlink">funcionário</a>
+      <a href="{% url 'aluno' %}" class="navlink">aluno</a>
+      <a href="{% url 'seguranca' %}" class="navlink">funcionário</a>
       <a href="{% url 'login' %}" class="perfil">👤</a>
     </nav>
   </header>
@@ -43,8 +43,6 @@
   <footer class="rodape">
     <nav class="rodape__links">
       <a href="{% url 'sobre' %}">Sobre</a>
-      <span>·</span>
-      <a href="#">Suporte</a>
       <span>·</span>
       <a href="{% url 'contato' %}">Contato</a>
     </nav>
