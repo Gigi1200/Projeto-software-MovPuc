@@ -14,7 +14,7 @@ urlpatterns = [
     path('escanear/leaving/', views.scan_concluded_leave, name='scan_con_lea'),
     path('esqueci_senha/', views.EsqueciSenhaView.as_view(), name='esqueci_senha'),
     path('', views.main_page, name='index'),
-      path("gerar_qr/<int:reserva_id>/", views.gerar_qr, name="gerar_qr"),
+    path("gerar_qr/<int:reserva_id>/", views.gerar_qr, name="gerar_qr"),
 
     # quando o segurança escaneia o QR
     path("scan/<int:reserva_id>/", views.scan_reserva, name="scan_reserva"),

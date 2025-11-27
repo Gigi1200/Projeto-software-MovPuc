@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.utils import timezone
+from app_usuarios.models import Vaga   
 
 import qrcode
 from io import BytesIO
@@ -190,3 +191,8 @@ def registrar_scan(request, reserva_id, tipo):
         reserva.save()
 
         return redirect("scan_con_lea")  # SUA PÁGINA DE SUCESSO
+
+@login_required(login_url='login')
+def reserva_bikes(request):
+    vagas = Vaga.objects.all()  # pega todas as bolinhas do banco
+    return render(request, 'app_usuarios/reservaBikes.html', {"coordenadas": vagas})

@@ -1,55 +1,78 @@
- {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/app_usuarios/css/reservaBikes.css">
-    <link rel="stylesheet" href="/static/app_usuarios/css/cabEFoot.css">
+
+    <link rel="stylesheet" href="{% static 'app_usuarios/css/reservaBikes.css' %}">
+    <link rel="stylesheet" href="{% static 'app_usuarios/css/cabEFoot.css' %}">
 
     <title>Página Reserva de Vagas Bikes</title>
 </head>
 
 <body>
     <div class="pagina">
+
         <header class="cab">
             <div class="logo">
-                <a href="{% url 'index' %}" ><img src="/static/app_usuarios/img/logo.png" class="bike" alt=""></a>
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'app_usuarios/img/logo.png' %}" class="bike" alt="">
+                </a>
                 <p class="brand">MOVPUC</p>
             </div>
+
             <nav class="nav">
                 <a href="{% url 'aluno' %}" class="navlink ativo">aluno</a>
                 <a href="{% url 'login' %}" class="perfil">👤</a>
             </nav>
         </header>
+
         <div class="estacionamentos">
             <p class="separate">Central</p>
             <p>Fundos</p>
         </div>
+
         <div class="mapa">
+
+            <!-- MAPA -->
             <div class="imagem">
-                <img src="/static/app_usuarios/img/mapabikes.png" alt="">
+                <img src="{% static 'app_usuarios/img/estacionamento.png' %}" alt="">
+
+                <!-- BOLINHAS DETECTADAS -->
+                <div class="bolinhas-container">
+                    {% for bolinha in coordenadas %}
+                        <div class="bolinha"
+                             style="top: {{ bolinha.top }}%; left: {{ bolinha.left }}%;"></div>
+                    {% endfor %}
+                </div>
             </div>
+
+            <!-- ÁREA DE TEXTO -->
             <div class="texto">
                 <div class="header">
                     <p>Reservar vaga - 17/10</p>
                 </div>
+
                 <p>Reservar sua vaga em uma bolinha verde!</p>
+
                 <div class="bottom">
-                    <p>Vagas Totais: 82</p>
+                    <p>Vagas Totais: {{ coordenadas|length }}</p>
                     <p>Vagas Restantes: 0</p>
                 </div>
             </div>
 
         </div>
-  <footer class="rodape">
-    <nav class="rodape__links">
-      <a href="{% url 'sobre' %}">Sobre</a>
-      <span>·</span>
-      <a href="{% url 'contato' %}">Contato</a>
-    </nav>
-  </footer>
+
+        <footer class="rodape">
+            <nav class="rodape__links">
+                <a href="{% url 'sobre' %}">Sobre</a>
+                <span>·</span>
+                <a href="{% url 'contato' %}">Contato</a>
+            </nav>
+        </footer>
+
     </div>
 </body>
 

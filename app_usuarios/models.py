@@ -54,3 +54,21 @@ class Scan(models.Model):
 
     def __str__(self):
         return f"Scan {self.tipo} - {self.reserva.id}"
+
+class Vaga(models.Model):
+    numero = models.IntegerField(unique=True)
+    top = models.FloatField()
+    left = models.FloatField()
+    ocupada = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Vaga {self.numero}"
+
+
+class ReservaVaga(models.Model):
+    aluno = models.ForeignKey(User, on_delete=models.CASCADE)
+    vaga = models.ForeignKey(Vaga, on_delete=models.CASCADE)
+    data_hora_reserva = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Reserva da Vaga {self.vaga.numero} - {self.aluno.username}"
