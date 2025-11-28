@@ -4,12 +4,16 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.utils import timezone
+from django.core.exceptions import PermissionDenied
+
+from .forms import CadastroForm, LoginForm, EsqueciSenhaForm
+from .models import Reserva, Scan, Bicicleta, Perfil
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView
+from .utils import tipo_required
 
 import qrcode
 from io import BytesIO
-
-from .forms import CadastroForm, LoginForm, EsqueciSenhaForm
-from .models import Reserva, Scan, Bicicleta
 
 
 # ------------------ PÁGINAS PRINCIPAIS ------------------
@@ -19,11 +23,13 @@ def main_page(request):
 
 
 @login_required(login_url='login')
+@tipo_required('aluno')
 def reserva_bikes(request):
     return render(request, 'app_usuarios/reservaBikes.html')
 
 
 @login_required(login_url='login')
+@tipo_required('aluno') 
 def main_alunos(request):
     return render(request, 'app_usuarios/aluno.html')
 
@@ -37,21 +43,25 @@ def contato(request):
 
 
 @login_required(login_url='login')
+@tipo_required('seguranca')
 def main_segurancas(request):
     return render(request, 'app_usuarios/seguranca.html')
 
 
 @login_required(login_url='login')
+@tipo_required('seguranca')
 def scan(request):
     return render(request, 'app_usuarios/scanBikes.html')
 
 
 @login_required(login_url='login')
+@tipo_required('seguranca')
 def scan_concluded_enter(request):
     return render(request, 'app_usuarios/scanConcluded.html')
 
 
 @login_required(login_url='login')
+@tipo_required('seguranca')
 def scan_concluded_leave(request):
     return render(request, 'app_usuarios/scanConcludedLeaving.html')
 
@@ -67,6 +77,10 @@ def cadastro(request):
                 email=form.cleaned_data['email'],
                 password=form.cleaned_data['senha']
             )
+            
+            tipo = form.cleaned_data['tipo']
+            Perfil.objects.create(user=usuario, tipo=tipo)
+            
             return redirect('login')
     else:
         form = CadastroForm()
@@ -100,13 +114,11 @@ def login_view(request):
 
 # ------------------ ESQUECI SENHA ------------------
 
-from django.contrib.auth.views import PasswordResetView
-from django.urls import reverse_lazy
-
 class EsqueciSenhaView(PasswordResetView):
     template_name = 'app_usuarios/esqueci_senha.html'
-    form_class = EsqueciSenhaForm
-    success_url = reverse_lazy('login')
+    email_template_name = 'app_usuarios/emails/resetar_senha_email.html'
+    subject_template_name = 'app_usuarios/emails/assunto_resetar_senha.txt'
+    success_url = reverse_lazy('password_reset_done')
 
 
 # ------------------ GERAR QR ------------------
@@ -172,15 +184,14 @@ def registrar_scan(request, reserva_id, tipo):
         tipo=tipo
     )
 
-    # Atualizar reserva
-    if tipo == "entrada":  # aluno retirando a bike
+    if tipo == "entrada":
         reserva.status = "retirada"
         reserva.data_hora_retirada = timezone.now()
         reserva.bicicleta.disponivel = False
         reserva.bicicleta.save()
         reserva.save()
 
-        return redirect("scan_con_ent")  # SUA PÁGINA DE SUCESSO
+        return redirect("scan_con_ent")  # Página de sucesso para entrada
 
     elif tipo == "saida":  # aluno devolvendo a bike
         reserva.status = "devolvida"
@@ -189,4 +200,5 @@ def registrar_scan(request, reserva_id, tipo):
         reserva.bicicleta.save()
         reserva.save()
 
-        return redirect("scan_con_lea")  # SUA PÁGINA DE SUCESSO
+        return redirect("scan_con_lea")  # Página de sucesso para saída
+

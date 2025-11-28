@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Perfil(models.Model):
     TIPOS = [
         ('aluno', 'Aluno'),
@@ -40,17 +41,14 @@ class Reserva(models.Model):
     status = models.CharField(max_length=20, choices=STATUS, default='pendente')
 
     def __str__(self):
-        return f"Reserva #{self.id} - {self.aluno.username}"
+        return f"Reserva #{self.id} - {self.aluno.username} - {self.status} (Retirada: {self.data_hora_retirada}, Devolução: {self.data_hora_devolucao})"
 
 
 class Scan(models.Model):
     reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)
     seguranca = models.ForeignKey(User, on_delete=models.CASCADE)
     data_hora = models.DateTimeField(auto_now_add=True)
-    tipo = models.CharField(max_length=20, choices=[
-        ('entrada', 'Entrada'),
-        ('saida', 'Saída'),
-    ])
+    tipo = models.CharField(max_length=20, choices=[('entrada', 'Entrada'), ('saida', 'Saída')])
 
     def __str__(self):
-        return f"Scan {self.tipo} - {self.reserva.id}"
+        return f"Scan {self.tipo} - Reserva #{self.reserva.id} - {self.data_hora}"
