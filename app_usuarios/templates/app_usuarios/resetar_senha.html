@@ -1,0 +1,8 @@
+<h2>Redefina sua senha</h2>
+<p>Digite sua nova senha abaixo:</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Redefinir senha</button>
+</form>

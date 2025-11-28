@@ -1,0 +1,8 @@
+<!-- app_usuarios/templates/app_usuarios/emails/resetar_senha_email.html -->
+
+<p>Olá {{ user.username }},</p>
+<p>Você solicitou uma redefinição de senha. Para redefinir sua senha, clique no link abaixo:</p>
+
+<p><a href="{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}">Redefinir senha</a></p>
+
+<p>Se você não fez essa solicitação, pode ignorar este e-mail.</p>

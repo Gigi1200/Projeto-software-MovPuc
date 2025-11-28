@@ -6,9 +6,16 @@ class CadastroForm(forms.ModelForm):
     senha = forms.CharField(widget=forms.PasswordInput)
     confirmar_senha = forms.CharField(widget=forms.PasswordInput)
 
+    # Adicionando o tipo de usuário (Aluno ou Segurança)
+    TIPO_USUARIO_CHOICES = (
+        ('aluno', 'Aluno'),
+        ('seguranca', 'Segurança'),
+    )
+    tipo = forms.ChoiceField(choices=TIPO_USUARIO_CHOICES, label="Tipo de usuário")
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'senha']
+        fields = ['username', 'email', 'senha']  # mantendo as opções de usuário, email e senha
 
     def clean(self):
         cleaned_data = super().clean()
@@ -17,6 +24,8 @@ class CadastroForm(forms.ModelForm):
 
         if senha != confirmar_senha:
             raise forms.ValidationError("As senhas não coincidem.")
+        return cleaned_data
+        
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="Usuário")
