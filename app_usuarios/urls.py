@@ -23,7 +23,6 @@ urlpatterns = [
     # segurança confirma entrada/saída
     path("registrar_scan/<int:reserva_id>/<str:tipo>/", views.registrar_scan, name="registrar_scan"),
 
-    # Password reset initiation page
       path('esqueci-senha/', auth_views.PasswordResetView.as_view(
         template_name='app_usuarios/esqueci_senha.html',
         email_template_name='app_usuarios/emails/resetar_senha_email.html',       # Versão Texto (obrigatório)
@@ -32,19 +31,18 @@ urlpatterns = [
         success_url='password_reset_done'),
     name='esqueci_senha'),
 
-    # Página que confirma que o e-mail foi enviado
     path('esqueci-senha/password_reset_done/', auth_views.PasswordResetDoneView.as_view(
-        template_name='app_usuarios/sucesso.html'),  # Página que informa que o e-mail foi enviado
+        template_name='app_usuarios/sucesso.html'),
     name='password_reset_done'),
 
-    # Página onde o usuário vai inserir a nova senha (com UID e token)
     path('resetar-senha/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
-        template_name='app_usuarios/resetar_senha.html',  # Formulário para inserir a nova senha
-        success_url='/resetar-senha/concluido/'),  # Página de sucesso após a redefinição
+        template_name='app_usuarios/resetar_senha.html',
+        success_url='/resetar-senha/concluido/'),
     name='password_reset_confirm'),
 
-    # Página final de sucesso após redefinir a senha
     path('resetar-senha/concluido/', auth_views.PasswordResetCompleteView.as_view(
-        template_name='app_usuarios/concluido.html'),  # Página de confirmação de sucesso
+        template_name='app_usuarios/concluido.html'),
     name='password_reset_complete'),
+
+    path('erro_scan', views.erro_scan, name='erro_scan')
 ]

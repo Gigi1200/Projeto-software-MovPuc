@@ -1,3 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Redefinição Enviada • MOVPUC</title>
+<!-- cabEFoot.css para estilos globais de Header e Footer -->
+<link rel="stylesheet" href="/static/app_usuarios/css/cabEFoot.css">
+<!-- sucesso_style.css para o layout da página de sucesso -->
+<link rel="stylesheet" href="/static/app_usuarios/css/sucesso_style.css" />
+<link href="https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DFigtree:wght%40400%3B600%3B700%3B800%26display%3Dswap" rel="stylesheet">
+</head>
+<body>
+<!-- Cabeçalho (Usando a classe .cab do cabEFoot.css) -->
+<header class="cab">
+<div class="logo">
+<a href="{% url 'index' %}"><img src="/static/app_usuarios/img/logo.png" class="bike" alt="Logo MOVPUC"></a>
+<p class="brand">MOVPUC</p>
+</div>
+<nav class="nav">
+<a href="{% url 'aluno' %}" class="navlink">aluno</a>
+<a href="{% url 'seguranca' %}" class="navlink">funcionário</a>
+<a href="{% url 'login' %}" class="perfil">👤</a>
+</nav>
+</header>
+
+<!-- Main Content Area -->
+
+<main>
+<div class="success-card">
+<!-- Conteúdo original da página (sem alteração de texto) -->
 <h2>Link de redefinição de senha enviado!</h2>
 <p>Se o e-mail fornecido for válido, você receberá um link para redefinir sua senha em breve.</p>
 <p>Por favor, verifique sua caixa de entrada (ou pasta de spam).</p>
+</div>
+</main>
+
+<!-- Rodapé (Usando a classe .rodape do cabEFoot.css) -->
+
+<footer class="rodape">
+<nav class="rodape__links">
+<a href="{% url 'sobre' %}">Sobre</a>
+<span>·</span>
+<a href="{% url 'contato' %}">Contato</a>
+</nav>
+</footer>
+</body>
+</html>

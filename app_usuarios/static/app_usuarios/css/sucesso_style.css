@@ -1,0 +1,75 @@
+/* ===== tokens ===== */
+:root {
+  /* Cores e variáveis baseadas em contato.css */
+  --brand: #32d061;
+  --navy: #0c2d52;
+  --ink: #1f1f1f;
+  --muted: #6a7586;
+  --shadow: 0 6px 18px rgba(0,0,0,.08);
+  --r-md: 14px;
+}
+
+/* RESET E TIPOGRAFIA BASE (Assume Figtree do cabEFoot.css) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f7faf9; /* Fundo do cabEFoot.css */
+  color: var(--ink);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Conteúdo Principal (Centralizado) */
+main {
+  flex-grow: 1; /* Garante que o main ocupe o espaço restante */
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 40px 18px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinha no topo, mas centraliza horizontalmente */
+}
+
+/* Card de Mensagem de Sucesso */
+.success-card {
+  max-width: 480px;
+  width: 100%;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #e6ebf1;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.success-card h2 {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  color: var(--navy);
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.success-card p {
+  color: var(--muted);
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  main {
+    padding: 24px 14px;
+  }
+  .success-card {
+    padding: 24px;
+  }
+}

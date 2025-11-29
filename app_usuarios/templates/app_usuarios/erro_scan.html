@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Erro de Scan - MOVPUC</title>
+<!-- Link para o estilo da página do segurança (inclui o card de mensagem) -->
+<link rel="stylesheet" href="{% static 'app_usuarios/css/seguranca_style.css' %}" />
+<!-- Link para cabEFoot.css para estilos globais de Header e Footer -->
+<link rel="stylesheet" href="{% static 'app_usuarios/css/cabEFoot.css' %}" />
+<!-- Link direto para a fonte Poppins -->
+<link href="https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DPoppins:wght%40400%3B600%3B700%3B800%26display%3Dswap" rel="stylesheet">
+</head>
+
+<body>
+<header class="cab">
+<div class="logo">
+<a href="{% url 'index' %}" ><img src="/static/app_usuarios/img/logo.png" class="bike" alt="Logo MOVPUC"></a>
+<p class="brand">MOVPUC</p>
+</div>
+<nav class="nav">
+<a href="{% url 'aluno' %}" class="navlink">aluno</a>
+<a href="{% url 'seguranca' %}" class="navlink">funcionário</a>
+<!-- O perfil do segurança pode ser diferente do perfil do aluno -->
+<a href="{% url 'login' %}" class="perfil">👤</a>
+</nav>
+</header>
+
+<!-- Conteúdo principal -->
+<main>
+    <div class="message-card danger">
+        <h2>Falha na Leitura!</h2>
+        <p>O código QR escaneado não é válido, já foi usado ou está expirado. Verifique o status da reserva no sistema.</p>
+        
+        <p style="font-weight: 600;">Orientações para o Funcionário:</p>
+        <ul style="list-style-type: disc; text-align: left; margin: 0 auto 30px 40px; color: var(--texto);">
+            <li>Verifique se o aluno possui outra reserva ativa.</li>
+            <li>Confirme a identidade do aluno (RG/Matrícula).</li>
+        </ul>
+
+        <!-- Link de retorno para a tela de scanner -->
+        <a href="{% url 'scan' %}" class="btn-action">
+            Tentar Novo Scan
+        </a>
+    </div>
+</main>
+
+<footer class="rodape">
+    <nav class="rodape__links">
+        <a href="{% url 'sobre' %}">Sobre</a>
+        <span>·</span>
+        <a href="{% url 'contato' %}">Contato</a>
+    </nav>
+</footer>
+
+
+</body>
+</html>

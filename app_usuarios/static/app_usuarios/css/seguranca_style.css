@@ -1,0 +1,104 @@
+/* ===== Variáveis Globais (Tokens) ===== */
+:root {
+  --verde: #32d061; /* Sucesso/Ação Primária */
+  --azul-escuro: #0c2d52; /* Cor de destaque/texto principal */
+  --vermelho: #e83a3a; /* Erro/Perigo */
+  --texto: #1f1f1f;
+  --sombra: 0 4px 10px rgba(0, 0, 0, 0.08);
+  --r-md: 10px; /* Raio de borda padrão */
+  --fundo-pagina: #f7faf9;
+}
+
+/* Base body e tipografia */
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', system-ui, sans-serif;
+}
+
+body {
+    background-color: var(--fundo-pagina);
+    color: var(--texto);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container Principal para centralizar conteúdo */
+main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* Cartão de Mensagem (Erro de Scan) */
+.message-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 40px 50px;
+    box-shadow: var(--sombra);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    border-top: 5px solid var(--vermelho); /* Destaque de erro */
+}
+
+.message-card.danger {
+    border-top: 5px solid var(--vermelho);
+}
+
+.message-card h2 {
+    color: var(--vermelho);
+    margin-bottom: 15px;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.message-card p {
+    color: var(--texto);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* Estilo do Botão de Ação (Voltar/Tentar Novamente) */
+.btn-action {
+    display: inline-block;
+    background: var(--azul-escuro); /* Ação neutra para voltar */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-action:hover {
+    background: #081f3b; /* Cor mais escura no hover */
+    transform: translateY(-1px);
+}
+
+/* Estilo para Botão Vermelho (Ação Crítica, se necessário) */
+.btn-action.red {
+    background: var(--vermelho);
+    box-shadow: 0 4px 10px rgba(232, 58, 58, 0.3);
+}
+
+.btn-action.red:hover {
+    background: #c73030;
+}
+
+/* Responsividade */
+@media (max-width: 500px) {
+    .message-card {
+        padding: 30px 25px;
+    }
+    .message-card h2 {
+        font-size: 24px;
+    }
+}

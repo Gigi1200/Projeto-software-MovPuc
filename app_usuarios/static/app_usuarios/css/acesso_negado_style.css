@@ -1,0 +1,100 @@
+/* ===== Variáveis Globais (Tokens) - Baseado no logging.css ===== */
+:root {
+  --verde: #32d061; /* Cor primária (MOVPUC Green) */
+  --azul: #0c2d52; /* Cor de destaque/texto principal (MOVPUC Navy) */
+  --texto: #1f1f1f;
+  --sombra: 0 4px 10px rgba(0, 0, 0, 0.08);
+  --r-md: 8px; /* Raio de borda padrão */
+}
+
+/* ===== Reset e Tipografia Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", system-ui, sans-serif; 
+}
+
+body {
+  background: #f7faf9; 
+  color: var(--texto);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===== CONTEÚDO PRINCIPAL / BOX DE ERRO ===== */
+main {
+  flex: 1; /* Ocupa o espaço restante */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.login-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 40px 50px;
+  box-shadow: var(--sombra);
+  width: 100%;
+  max-width: 380px; /* Limita a largura para um visual de formulário */
+  text-align: center;
+}
+
+.login-box h2 {
+  color: var(--azul);
+  margin-bottom: 20px; /* Ajustado para dar espaço ao parágrafo */
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.login-box p {
+    color: var(--texto);
+    line-height: 1.5;
+    margin-bottom: 20px; /* Espaçamento abaixo do texto de descrição */
+}
+
+/* Estilo do Botão Principal (Retorno) */
+.btn {
+  width: 100%;
+  background: var(--verde);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: var(--r-md);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none; /* Para links estilizados como botões */
+  display: block; /* Garante que o <a> ocupe a largura total */
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #29b75a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Links Adicionais (Login com outra conta) */
+.cadastro {
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.cadastro a {
+  color: var(--azul);
+  text-decoration: none;
+  font-weight: 600;
+}
+.cadastro a:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .login-box {
+        padding: 30px 25px;
+    }
+}
