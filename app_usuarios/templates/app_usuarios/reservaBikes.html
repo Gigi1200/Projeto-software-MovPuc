@@ -1,56 +1,60 @@
- {% load static %}
+{% load static %}
+
 <!DOCTYPE html>
-<html>
 
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/app_usuarios/css/reservaBikes.css">
-    <link rel="stylesheet" href="/static/app_usuarios/css/cabEFoot.css">
-
-    <title>Página Reserva de Vagas Bikes</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Acesso Negado (403) - MOVPUC</title>
+<!-- Link para o estilo específico do cartão centralizado (Acesso Negado) -->
+<link rel="stylesheet" href="{% static 'app_usuarios/css/acesso_negado_style.css' %}" />
+<!-- Link para cabEFoot.css para estilos globais de Header e Footer -->
+<link rel="stylesheet" href="{% static 'app_usuarios/css/cabEFoot.css' %}" />
+<!-- Link direto para a fonte Poppins -->
+<link href="https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DPoppins:wght%40400%3B600%3B700%3B800%26display%3Dswap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="pagina">
-        <header class="cab">
-            <div class="logo">
-                <a href="{% url 'index' %}" ><img src="/static/app_usuarios/img/logo.png" class="bike" alt=""></a>
-                <p class="brand">MOVPUC</p>
-            </div>
-            <nav class="nav">
-                <a href="{% url 'aluno' %}" class="navlink ativo">aluno</a>
-                <a href="{% url 'login' %}" class="perfil">👤</a>
-            </nav>
-        </header>
-        <div class="estacionamentos">
-            <p class="separate">Central</p>
-            <p>Fundos</p>
-        </div>
-        <div class="mapa">
-            <div class="imagem">
-                <img src="/static/app_usuarios/img/mapabikes.png" alt="">
-            </div>
-            <div class="texto">
-                <div class="header">
-                    <p>Reservar vaga - 17/10</p>
-                </div>
-                <p>Reservar sua vaga em uma bolinha verde!</p>
-                <div class="bottom">
-                    <p>Vagas Totais: 82</p>
-                    <p>Vagas Restantes: 0</p>
-                </div>
-            </div>
+<header class="cab">
+<div class="logo">
+<a href="{% url 'index' %}" ><img src="/static/app_usuarios/img/logo.png" class="bike" alt="Logo MOVPUC"></a>
+<p class="brand">MOVPUC</p>
+</div>
+<nav class="nav">
+<a href="{% url 'aluno' %}" class="navlink">aluno</a>
+<a href="{% url 'seguranca' %}" class="navlink">funcionário</a>
+<a href="{% url 'login' %}" class="perfil">👤</a>
+</nav>
+</header>
 
-        </div>
-  <footer class="rodape">
-    <nav class="rodape__links">
-      <a href="{% url 'sobre' %}">Sobre</a>
-      <span>·</span>
-      <a href="{% url 'contato' %}">Contato</a>
-    </nav>
-  </footer>
+<!-- Conteúdo principal -->
+<main>
+    <div class="login-box">
+        <!-- Título do erro 403 -->
+        <h2 style="color: var(--azul);">Acesso Negado (403)</h2>
+        <p style="color: var(--texto); font-size: 16px;">
+            Você não tem permissão para acessar este recurso com o seu tipo de usuário.
+        </p>
+
+        <!-- Botão de retorno, usando a classe .btn -->
+        <a href="{% url 'index' %}" class="btn">Voltar para a Página Inicial</a>
+
+        <!-- Opção de login com outra conta -->
+        <p class="cadastro">
+            <a href="{% url 'login' %}">Fazer login com outra conta</a>
+        </p>
     </div>
-</body>
+</main>
 
+<footer class="rodape">
+    <nav class="rodape__links">
+        <a href="{% url 'sobre' %}">Sobre</a>
+        <span>·</span>
+        <a href="{% url 'contato' %}">Contato</a>
+    </nav>
+</footer>
+
+
+</body>
 </html>

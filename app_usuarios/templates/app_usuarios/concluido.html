@@ -1,3 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Concluído • MOVPUC</title>
+<!-- cabEFoot.css para estilos globais de Header e Footer -->
+<link rel="stylesheet" href="/static/app_usuarios/css/cabEFoot.css">
+<!-- sucesso_style.css para o layout da página de sucesso -->
+<link rel="stylesheet" href="/static/app_usuarios/css/sucesso_style.css" />
+<!-- CORREÇÃO: Link direto do Google Fonts para carregar a fonte Poppins, conforme solicitado -->
+<link href="https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DPoppins:wght%40400%3B600%3B700%3B800%26display%3Dswap" rel="stylesheet">
+</head>
+<body>
+<!-- Cabeçalho (Usando a classe .cab do cabEFoot.css) -->
+<header class="cab">
+<div class="logo">
+<a href="{% url 'index' %}"><img src="/static/app_usuarios/img/logo.png" class="bike" alt="Logo MOVPUC"></a>
+<p class="brand">MOVPUC</p>
+</div>
+<nav class="nav">
+<a href="{% url 'aluno' %}" class="navlink">aluno</a>
+<a href="{% url 'seguranca' %}" class="navlink">funcionário</a>
+<a href="{% url 'login' %}" class="perfil">👤</a>
+</nav>
+</header>
+
+<!-- Main Content Area -->
+
+<main>
+<div class="success-card">
+<!-- Conteúdo fornecido pelo usuário -->
 <h2>Senha redefinida com sucesso!</h2>
 <p>Agora você pode usar sua nova senha para acessar sua conta.</p>
-<p><a href="{% url 'login' %}">Clique aqui para fazer login com sua nova senha.</a></p>
+<!-- Aplicando a classe btn-link do sucesso_style.css -->
+<p><a href="{% url 'login' %}" class="btn-link">Clique aqui para fazer login com sua nova senha.</a></p>
+</div>
+</main>
+
+<!-- Rodapé (Usando a classe .rodape do cabEFoot.css) -->
+
+<footer class="rodape">
+<nav class="rodape__links">
+<a href="{% url 'sobre' %}">Sobre</a>
+<span>·</span>
+<a href="{% url 'contato' %}">Contato</a>
+</nav>
+</footer>
+</body>
+</html>

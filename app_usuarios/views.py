@@ -37,6 +37,10 @@ def main_alunos(request):
 def sobre(request):
     return render(request, 'app_usuarios/sobre.html')
 
+@login_required(login_url='login')
+@tipo_required('seguranca')
+def erro_scan(request):
+    return render(request, 'app_usuarios/erro_scan.html')
 
 def contato(request):
     return render(request, 'app_usuarios/contato.html')

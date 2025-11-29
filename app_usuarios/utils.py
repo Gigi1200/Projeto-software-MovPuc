@@ -16,7 +16,7 @@ def tipo_required(*tipos_permitidos):
 
             perfil = getattr(request.user, 'perfil', None)
             if perfil is None or perfil.tipo not in tipos_permitidos:
-                return HttpResponseForbidden("Acesso negado para este tipo de usuário.")
+                return render(request, 'app_usuarios/acesso_negado.html')
             return view_func(request, *args, **kwargs)
         return _wrapped_view
     return decorator

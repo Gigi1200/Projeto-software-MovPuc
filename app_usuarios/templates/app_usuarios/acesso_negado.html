@@ -6,12 +6,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Redefinir Senha - MOVPUC</title>
-<!-- Link para o logging.css para os estilos do formulário -->
-<link rel="stylesheet" href="{% static 'app_usuarios/css/loging.css' %}" />
+<title>Acesso Negado (403) - MOVPUC</title>
+<!-- Link para o estilo específico do cartão centralizado (Acesso Negado) -->
+<link rel="stylesheet" href="{% static 'app_usuarios/css/acesso_negado_style.css' %}" />
 <!-- Link para cabEFoot.css para estilos globais de Header e Footer -->
 <link rel="stylesheet" href="{% static 'app_usuarios/css/cabEFoot.css' %}" />
-<!-- Link para a fonte Poppins -->
+<!-- CORREÇÃO: Link direto para a fonte Poppins -->
 <link href="https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DPoppins:wght%40400%3B600%3B700%3B800%26display%3Dswap" rel="stylesheet">
 </head>
 
@@ -32,17 +32,19 @@
 
 <main>
 <div class="login-box">
-<h2>Redefina sua senha</h2>
-<p>Digite sua nova senha abaixo:</p>
+<!-- Título do erro 403 -->
+<h2 style="color: var(--azul);">Acesso Negado (403)</h2>
+<p style="color: var(--texto); font-size: 16px;">
+Você não tem permissão para acessar este recurso com o seu tipo de usuário.
+</p>
 
-  <form method="post">
-    {% csrf_token %}
-    <!-- form.as_p irá renderizar os campos da senha e confirmação -->
-    {{ form.as_p }}
+    <!-- Botão de retorno, usando a classe .btn -->
+    <a href="{% url 'index' %}" class="btn">Voltar para a Página Inicial</a>
 
-    <!-- O botão usa a classe .btn do logging.css -->
-    <button type="submit" class="btn">Redefinir senha</button>
-  </form>
+    <!-- Opção de login com outra conta -->
+    <p class="cadastro">
+        <a href="{% url 'login' %}">Fazer login com outra conta</a>
+    </p>
 </div>
 
 
