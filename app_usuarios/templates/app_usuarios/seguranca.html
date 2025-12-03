@@ -32,13 +32,11 @@
         <img src="/static/app_usuarios/img/qrcodeemoji.png" alt="" class="icon">
         <a href="scanBikes.html">Escanear código</a>
       </button>
-      <button class="btn btn-soft">
+      <a href="{% url 'reserva_bikes' %}" class="btn btn-soft">
         <p class="icon">☑️</p>
         <p>Ver vagas</p>
-      </button>
-      <button class="btn btn-cta">
-        <p>Ver vagas disponíveis</p>
-      </button>
+      </a>
+   
       <div class="grid2">
         <div class="card kpi">
           <p><strong>XX</strong> Bikes em uso</p>
