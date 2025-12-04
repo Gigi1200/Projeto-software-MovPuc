@@ -37,10 +37,12 @@ def main_alunos(request):
 def sobre(request):
     return render(request, 'app_usuarios/sobre.html')
 
+
 @login_required(login_url='login')
 @tipo_required('seguranca')
 def erro_scan(request):
     return render(request, 'app_usuarios/erro_scan.html')
+
 
 def contato(request):
     return render(request, 'app_usuarios/contato.html')
@@ -52,22 +54,27 @@ def main_segurancas(request):
     return render(request, 'app_usuarios/seguranca.html')
 
 
+# Página principal do segurança (sem ID)
 @login_required(login_url='login')
 @tipo_required('seguranca')
 def scan(request):
     return render(request, 'app_usuarios/scanBikes.html')
 
 
+# ------------------ PÁGINAS DE CONCLUSÃO ------------------
+
 @login_required(login_url='login')
 @tipo_required('seguranca')
-def scan_concluded_enter(request):
-    return render(request, 'app_usuarios/scanConcluded.html')
+def scan_concluded_enter(request, reserva_id):
+    reserva = get_object_or_404(Reserva, id=reserva_id)
+    return render(request, 'app_usuarios/scanConcluded.html', {"reserva": reserva})
 
 
 @login_required(login_url='login')
 @tipo_required('seguranca')
-def scan_concluded_leave(request):
-    return render(request, 'app_usuarios/scanConcludedLeaving.html')
+def scan_concluded_leave(request, reserva_id):
+    reserva = get_object_or_404(Reserva, id=reserva_id)
+    return render(request, 'app_usuarios/scanConcludedLeaving.html', {"reserva": reserva})
 
 
 # ------------------ CADASTRO ------------------
@@ -131,9 +138,7 @@ class EsqueciSenhaView(PasswordResetView):
 def gerar_qr(request, reserva_id):
     reserva = Reserva.objects.get(id=reserva_id)
 
-    # URL que será aberta pelo segurança ao ler o QR
     url = request.build_absolute_uri(f"/scan/{reserva.id}/")
-
     qr = qrcode.make(url)
 
     buffer = BytesIO()
@@ -147,24 +152,16 @@ def gerar_qr(request, reserva_id):
 
 @login_required
 def scan_reserva(request, reserva_id):
-    """
-    Abre quando o segurança escaneia o QR Code.
-    Decide automaticamente entrada (retirada) ou saída (devolução).
-    """
 
-    # Apenas seguranças podem escanear
     if not hasattr(request.user, "perfil") or request.user.perfil.tipo != "seguranca":
         return HttpResponse("Acesso negado: você não é segurança.")
 
     reserva = get_object_or_404(Reserva, id=reserva_id)
 
-    # Lógica de decisão:
     if reserva.status == "pendente":
-        # aluno vai retirar a bike
         return redirect("registrar_scan", reserva_id=reserva.id, tipo="entrada")
 
     if reserva.status == "retirada":
-        # aluno está devolvendo a bike
         return redirect("registrar_scan", reserva_id=reserva.id, tipo="saida")
 
     return HttpResponse("Reserva já finalizada.")
@@ -172,16 +169,12 @@ def scan_reserva(request, reserva_id):
 
 @login_required
 def registrar_scan(request, reserva_id, tipo):
-    """
-    Segurança confirma a entrada (retirada) ou saída (devolução).
-    """
 
     if not hasattr(request.user, "perfil") or request.user.perfil.tipo != "seguranca":
         return HttpResponse("Acesso negado: você não é segurança.")
 
     reserva = get_object_or_404(Reserva, id=reserva_id)
 
-    # Registrar log
     Scan.objects.create(
         reserva=reserva,
         seguranca=request.user,
@@ -195,14 +188,66 @@ def registrar_scan(request, reserva_id, tipo):
         reserva.bicicleta.save()
         reserva.save()
 
-        return redirect("scan_con_ent")  # Página de sucesso para entrada
+        return redirect("scan_con_ent", reserva_id=reserva.id)
 
-    elif tipo == "saida":  # aluno devolvendo a bike
+    elif tipo == "saida":
         reserva.status = "devolvida"
         reserva.data_hora_devolucao = timezone.now()
         reserva.bicicleta.disponivel = True
         reserva.bicicleta.save()
         reserva.save()
 
-        return redirect("scan_con_lea")  # Página de sucesso para saída
+        return redirect("scan_con_lea", reserva_id=reserva.id)
 
+from django.http import JsonResponse
+
+@login_required(login_url='login')
+@tipo_required('aluno')
+def reservar_vaga(request, vaga_id):
+
+    # Esperar POST
+    if request.method != "POST":
+        return JsonResponse({"erro": "Use POST"}, status=405)
+
+    # Buscar bicicleta por codigo (que é string no seu model)
+    try:
+        bicicleta = Bicicleta.objects.get(codigo=str(vaga_id))
+    except Bicicleta.DoesNotExist:
+        return JsonResponse({"erro": "Vaga inexistente"}, status=404)
+
+    # Verificar disponibilidade
+    if not bicicleta.disponivel:
+        return JsonResponse({"erro": "Vaga já reservada"}, status=400)
+
+    # Criar reserva
+    reserva = Reserva.objects.create(
+        aluno=request.user,
+        bicicleta=bicicleta,
+        status="pendente"
+    )
+
+    # Marcar como ocupada
+    bicicleta.disponivel = False
+    bicicleta.save()
+
+    return JsonResponse({"sucesso": True, "reserva_id": reserva.id})
+from .models import Vaga
+
+
+@login_required(login_url='login')
+@tipo_required('aluno')
+def reserva_bikes(request):
+    vagas = Vaga.objects.all().order_by("numero")
+    return render(request, 'app_usuarios/reservaBikes.html', {"vagas": vagas})
+
+
+@login_required(login_url='login')
+@tipo_required('aluno')
+def reservar_vaga(request, numero):
+    vaga = get_object_or_404(Vaga, numero=numero)
+
+    if vaga.disponivel:
+        vaga.disponivel = False
+        vaga.save()
+
+    return redirect('reserva_bikes')

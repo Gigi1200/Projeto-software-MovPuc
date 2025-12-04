@@ -80,6 +80,39 @@ body {
     font-weight: bold;
 }
 
+.mapa {
+  position: relative;
+}
+
+.mapa .imagem {
+  position: relative;
+}
+
+.mapa-base {
+  width: 2048px;
+  height: auto;
+  display: block;
+}
+
+.vaga {
+    width: 22px;
+    height: 22px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+    border: 2px solid white;
+}
+
+.vaga.reservada {
+    background-color: green;
+}
+
+.imagem {
+    position: relative;
+}
+
+
 .sobre {
     display: flex;
     justify-content: center;
