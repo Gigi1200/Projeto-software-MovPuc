@@ -1,4 +1,4 @@
- {% load static %}
+{% load static %}
 <!doctype html>
 <html lang="pt-br">
 
@@ -6,8 +6,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MOVPUC — Controle de bikes</title>
-  <link rel="stylesheet" href="/static/app_usuarios/css/aluno.css">
-  <link rel="stylesheet" href="/static/app_usuarios/css/cabEFoot.css">
+  <link rel="stylesheet" href="{% static 'app_usuarios/css/aluno.css' %}">
+  <link rel="stylesheet" href="{% static 'app_usuarios/css/cabEFoot.css' %}">
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Figtree:wght@400;600;700&display=swap"
     rel="stylesheet">
@@ -16,7 +16,7 @@
 <body>
   <header class="cab">
     <div class="logo">
-      <a href="{% url 'index' %}" ><img src="/static/app_usuarios/img/logo.png" class="bike" alt=""></a>
+      <a href="{% url 'index' %}"><img src="{% static 'app_usuarios/img/logo.png' %}" class="bike" alt=""></a>
       <p class="brand">MOVPUC</p>
     </div>
     <nav class="nav">
@@ -24,6 +24,7 @@
       <a href="{% url 'login' %}" class="perfil">👤</a>
     </nav>
   </header>
+
   <main class="container">
     <section class="hero">
       <h1>Controle de bikes da PUC</h1>
@@ -36,24 +37,24 @@
       </div>
 
       <figure class="mapa">
-        <img src="/static/app_usuarios/img/mapacampus.png" alt="Mapa do campus">
+        <img src="{% static 'app_usuarios/img/mapacampus.png' %}" alt="Mapa do campus">
       </figure>
     </section>
 
     <section class="painel">
       <div class="cta">
-        <p class="cta__numero">32</p>
+        <p class="cta__numero">{{ vagas_disponiveis }}</p>
         <p class="cta__texto">Vagas disponíveis</p>
       </div>
 
       <div class="cards">
         <div class="card card-gray">
-          <p class="kpi__numero">18</p>
-          <p class="kpi__texto">Bikes em uso</p>
+          <p class="kpi__numero">{{ bikes_em_uso }}</p>
+          <p class="kpi__texto">Vagas ocupadas</p>
         </div>
         <div class="card card-green">
-          <p class="kpi__numero">12</p>
-          <p class="kpi__texto">Reservas</p>
+          <p class="kpi__numero">{{ reservas_ativas }}</p>
+          <p class="kpi__texto">Suas Reservas ativas </p>
         </div>
       </div>
     </section>
@@ -66,5 +67,6 @@
       <a href="{% url 'contato' %}">Contato</a>
     </nav>
   </footer>
+</body>
 
 </html>
