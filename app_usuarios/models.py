@@ -19,7 +19,7 @@ class Bicicleta(models.Model):
 
 class Reserva(models.Model):
     aluno = models.ForeignKey(User, on_delete=models.CASCADE)
-    bicicleta = models.ForeignKey('Bicicleta', on_delete=models.CASCADE)
+    bicicleta = models.ForeignKey('Bicicleta', on_delete=models.CASCADE, null=True, blank=True)  # <-- mudança
     status = models.CharField(max_length=20, default="pendente")
     data_hora_retirada = models.DateTimeField(null=True, blank=True)
     data_hora_devolucao = models.DateTimeField(null=True, blank=True)

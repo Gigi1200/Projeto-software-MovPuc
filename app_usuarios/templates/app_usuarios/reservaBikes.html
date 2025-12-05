@@ -29,11 +29,35 @@
             align-items: center;
             cursor: pointer;
             border: 2px solid #333;
+            transition: transform 0.2s;
+        }
+
+        .vaga:hover {
+            transform: scale(1.1);
         }
 
         .ocupada {
-            background-color: #ff3b3b !important;
+            background-color: #ff3b3b !important; /* vermelho */
             cursor: not-allowed;
+        }
+
+        .minha-reserva {
+            background-color: gold !important;
+            color: black;
+            font-weight: bold;
+            border: 2px solid #333;
+        }
+
+        .vaga-form {
+            display: inline-block;
+        }
+
+        .sua-reserva {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            color: goldenrod;
         }
     </style>
 </head>
@@ -56,15 +80,40 @@
 
 <h2 style="text-align:center; margin-top: 30px;">Selecione uma vaga</h2>
 
+<!-- Mensagens do Django -->
+{% if messages %}
+    <ul style="text-align:center; list-style:none; padding:0;">
+        {% for message in messages %}
+            <li style="color:{% if message.tags == 'error' %}red{% else %}green{% endif %}; margin-bottom:10px;">
+                {{ message }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
 <div class="vagas-container">
     {% for vaga in vagas %}
-        <a href="{% url 'reservar_vaga' vaga.numero %}" style="text-decoration:none;">
-            <div class="vaga {% if not vaga.disponivel %}ocupada{% endif %}">
+        {% if vaga.disponivel %}
+            <form method="POST" action="{% url 'reservar_vaga' vaga.numero %}" class="vaga-form">
+                {% csrf_token %}
+                <button type="submit" class="vaga {% if minha_reserva and minha_reserva.vaga.id == vaga.id %}minha-reserva{% endif %}">
+                    {{ vaga.numero }}
+                </button>
+            </form>
+        {% else %}
+            <div class="vaga ocupada {% if minha_reserva and minha_reserva.vaga.id == vaga.id %}minha-reserva{% endif %}">
                 {{ vaga.numero }}
             </div>
-        </a>
+        {% endif %}
     {% endfor %}
 </div>
+
+<!-- Mostrar a própria reserva -->
+{% if minha_reserva %}
+    <div class="sua-reserva">
+        Sua reserva: Vaga {{ minha_reserva.vaga.numero }}
+    </div>
+{% endif %}
 
 <footer class="rodape">
     <nav class="rodape__links">

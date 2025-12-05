@@ -1,4 +1,4 @@
- {% load static %}
+{% load static %}
 <!doctype html>
 <html lang="pt-br">
 
@@ -16,33 +16,34 @@
 <body>
   <header class="cab">
     <div class="logo">
-      <a href="{% url 'index' %}" ><img src="/static/app_usuarios/img/logo.png" class="bike" alt=""></a>
+      <a href="{% url 'index' %}"><img src="/static/app_usuarios/img/logo.png" class="bike" alt=""></a>
       <p class="brand">MOVPUC</p>
     </div>
     <nav class="nav">
       <a href="{% url 'seguranca' %}" class="navlink ativo">funcionário</a>
       <a href="{% url 'login' %}" class="perfil">👤</a>
-
     </nav>
   </header>
 
   <main class="wrap">
     <div class="stack">
-      <button class="btn btn-primary">
-        <img src="/static/app_usuarios/img/qrcodeemoji.png" alt="" class="icon">
-        <a href="{% url 'scan_seg' %}">Escanear código</a>
-      </button>
-      <a href="{% url 'reserva_bikes' %}" class="btn btn-soft">
-        <p class="icon">☑️</p>
-        <p>Ver vagas</p>
-      </a>
-   
+      <h2>Reservas ativas</h2>
+
+      {% if reserva_para_scan %}
+        <a href="{% url 'scan_reserva' reserva_para_scan.id %}" class="btn btn-primary">
+          <img src="/static/app_usuarios/img/qrcodeemoji.png" alt="" class="icon">
+          Escanear código
+        </a>
+      {% else %}
+        <p>Nenhuma reserva ativa para escanear</p>
+      {% endif %}
+
       <div class="grid2">
         <div class="card kpi">
-          <p><strong>XX</strong> Bikes em uso</p>
+          <p><strong>{{ bikes_em_uso }}</strong> Bikes em uso</p>
         </div>
         <div class="card kpi">
-          <p><strong>XX</strong> Reservas</p>
+          <p><strong>{{ reservas_ativas }}</strong> Reserva ativa</p>
         </div>
       </div>
     </div>
@@ -55,5 +56,5 @@
       <a href="{% url 'contato' %}">Contato</a>
     </nav>
   </footer>
-
+</body>
 </html>

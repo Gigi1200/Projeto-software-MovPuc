@@ -1,17 +1,17 @@
- {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Controle de Bikes da PUC</title>
-   <link rel="stylesheet" href="{% static 'app_usuarios/css/style.css' %}">
-   <link rel="stylesheet" href="{% static 'app_usuarios/css/cabEFoot.css' %}">
+  <link rel="stylesheet" href="{% static 'app_usuarios/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'app_usuarios/css/cabEFoot.css' %}">
 </head>
 <body>
   <header class="cab">
     <div class="logo">
-      <a href="{% url 'index' %}" ><img src="/static/app_usuarios/img/logo.png" class="bike" alt=""></a>
+      <a href="{% url 'index' %}"><img src="{% static 'app_usuarios/img/logo.png' %}" class="bike" alt=""></a>
       <p class="brand">MOVPUC</p>
     </div>
     <nav class="nav">
@@ -20,7 +20,6 @@
       <a href="{% url 'login' %}" class="perfil">👤</a>
     </nav>
   </header>
-
 
   <main>
     <section class="hero">
@@ -36,15 +35,15 @@
 
     <section class="stats">
       <div class="card azul">
-        <span class="num">32</span>
+        <span class="num">{{ vagas_disponiveis }}</span>
         <span class="label">Vagas disponíveis</span>
       </div>
       <div class="card cinza">
-        <span class="num">18</span>
+        <span class="num">{{ bikes_em_uso }}</span>
         <span class="label">Bikes em uso</span>
       </div>
       <div class="card verde">
-        <span class="num">12</span>
+        <span class="num">{{ reservas_ativas }}</span>
         <span class="label">Reservas ativas</span>
       </div>
     </section>
