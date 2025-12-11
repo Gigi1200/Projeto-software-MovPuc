@@ -29,15 +29,6 @@
     <div class="stack">
       <h2>Reservas ativas</h2>
 
-      {% if reserva_para_scan %}
-        <a href="{% url 'scan_reserva' reserva_para_scan.id %}" class="btn btn-primary">
-          <img src="/static/app_usuarios/img/qrcodeemoji.png" alt="" class="icon">
-          Escanear código
-        </a>
-      {% else %}
-        <p>Nenhuma reserva ativa para escanear</p>
-      {% endif %}
-
       <div class="grid2">
         <div class="card kpi">
           <p><strong>{{ bikes_em_uso }}</strong> Bikes em uso</p>
@@ -47,14 +38,30 @@
         </div>
       </div>
     </div>
-  </main>
 
-  <footer class="rodape">
-    <nav class="rodape__links">
-      <a href="{% url 'sobre' %}">Sobre</a>
-      <span>·</span>
-      <a href="{% url 'contato' %}">Contato</a>
-    </nav>
-  </footer>
+    <!-- BLOCO: lista de IDs de reservas pendentes -->
+    <div class="stack" style="margin-top: 2rem;">
+
+      {% if reservas_pendentes %}
+        <ul class="lista-reservas">
+          {% for reserva in reservas_pendentes %}
+            <li class="item-reserva">
+              <span>
+                Vaga: {{ reserva.vaga.numero }} — 
+                Aluno: {{ reserva.aluno.username }} — 
+                ID: {{ reserva.id }}
+              </span>
+              <a href="{% url 'scan_reserva' reserva.id %}" class="btn btn-primary btn-small">
+                <img src="/static/app_usuarios/img/qrcodeemoji.png" alt="" class="icon">
+                Escanear
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>Não há reservas pendentes no momento.</p>
+      {% endif %}
+    </div>
+  </main>
 </body>
 </html>
