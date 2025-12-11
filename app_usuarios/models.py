@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Perfil(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     tipo = models.CharField(max_length=20)
@@ -19,7 +20,19 @@ class Bicicleta(models.Model):
 
 class Reserva(models.Model):
     aluno = models.ForeignKey(User, on_delete=models.CASCADE)
-    bicicleta = models.ForeignKey('Bicicleta', on_delete=models.CASCADE, null=True, blank=True)  # <-- mudança
+    bicicleta = models.ForeignKey(
+        'Bicicleta',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+    # 🔹 NOVO: vínculo da reserva com a vaga
+    vaga = models.ForeignKey(
+        'Vaga',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
     status = models.CharField(max_length=20, default="pendente")
     data_hora_retirada = models.DateTimeField(null=True, blank=True)
     data_hora_devolucao = models.DateTimeField(null=True, blank=True)
@@ -38,7 +51,6 @@ class Scan(models.Model):
         return f"Scan {self.tipo} - {self.reserva.id}"
 
 
-# 🚨 NOVO MODEL PARA AS VAGAS
 class Vaga(models.Model):
     numero = models.IntegerField(unique=True)
     disponivel = models.BooleanField(default=True)

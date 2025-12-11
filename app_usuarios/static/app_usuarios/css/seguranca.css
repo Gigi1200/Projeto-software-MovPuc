@@ -125,3 +125,34 @@
     width: 100%;
   }
 }
+
+.lista-reservas 
+{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item-reserva 
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .5rem;
+}
+
+.btn-small 
+{
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.lista-reservas {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item-reserva {
+  margin-bottom: 1.5rem;
+}

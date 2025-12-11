@@ -43,4 +43,15 @@ urlpatterns = [
     name='password_reset_complete'),
 
     path('erro_scan/', views.erro_scan, name='erro_scan'),
+
+    path(
+        "scan_concluded/entrada/<int:reserva_id>/",
+        views.scan_concluded_enter,
+        name="scan_con_ent",
+    ),
+    path(
+        "scan_concluded/saida/<int:reserva_id>/",
+        views.scan_concluded_leave,
+        name="scan_con_lea",
+    ),
 ]

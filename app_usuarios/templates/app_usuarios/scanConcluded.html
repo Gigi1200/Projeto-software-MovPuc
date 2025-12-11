@@ -31,12 +31,20 @@
             <img src="/static/app_usuarios/img/icone.png" alt="">
         </div>
         <div class="infos">
-            <p>Nome: Fulano</p>
-            <p>Matrícula: 2510000</p>
+            <p>Nome: {{ reserva.aluno.get_full_name|default:reserva.aluno.username }}</p>
+
+            <p>Matrícula: XXXXXXX</p>
+
             <div class="green">Entrando</div>
-            <p>Tempo de estadia: XX:XX</p>
-            <p>Horário de Entrada: XX:XX</p>
-            <p>Horário de Saída: XX:XX</p>
+
+            <p>
+            Horário de Entrada:
+            {% if reserva.data_hora_retirada %}
+                {{ reserva.data_hora_retirada|date:"H:i" }}
+            {% else %}
+                --:--
+            {% endif %}
+            </p>
         </div>
     </div>
   <footer class="rodape">

@@ -14,6 +14,7 @@ from .utils import tipo_required
 
 import qrcode
 from io import BytesIO
+from datetime import timedelta
 
 # ------------------ PÁGINAS PRINCIPAIS ------------------
 
@@ -192,6 +193,44 @@ def scan_reserva(request, reserva_id):
         return redirect("registrar_scan", reserva_id=reserva.id, tipo="saida")
     return HttpResponse("Reserva já finalizada.")
 
+@login_required(login_url='login')
+@tipo_required('seguranca')
+def scan_concluded_enter(request, reserva_id):
+    reserva = get_object_or_404(Reserva, id=reserva_id)
+
+    duracao = None
+    if reserva.data_hora_retirada and reserva.data_hora_devolucao:
+        diff = reserva.data_hora_devolucao - reserva.data_hora_retirada
+        total_seconds = int(diff.total_seconds())
+        horas = total_seconds // 3600
+        minutos = (total_seconds % 3600) // 60
+        duracao = f"{horas:02d}:{minutos:02d}"
+
+    contexto = {
+        "reserva": reserva,
+        "duracao": duracao,
+    }
+    return render(request, 'app_usuarios/scanConcluded.html', contexto)
+
+
+@login_required(login_url='login')
+@tipo_required('seguranca')
+def scan_concluded_leave(request, reserva_id):
+    reserva = get_object_or_404(Reserva, id=reserva_id)
+
+    duracao = None
+    if reserva.data_hora_retirada and reserva.data_hora_devolucao:
+        diff = reserva.data_hora_devolucao - reserva.data_hora_retirada
+        total_seconds = int(diff.total_seconds())
+        horas = total_seconds // 3600
+        minutos = (total_seconds % 3600) // 60
+        duracao = f"{horas:02d}:{minutos:02d}"
+
+    contexto = {
+        "reserva": reserva,
+        "duracao": duracao,
+    }
+    return render(request, 'app_usuarios/scanConcludedLeaving.html', contexto)
 
 @login_required
 def registrar_scan(request, reserva_id, tipo):
@@ -210,9 +249,15 @@ def registrar_scan(request, reserva_id, tipo):
     elif tipo == "saida":
         reserva.status = "devolvida"
         reserva.data_hora_devolucao = timezone.now()
+
         if reserva.bicicleta:
             reserva.bicicleta.disponivel = True
             reserva.bicicleta.save()
+
+        if reserva.vaga:
+            reserva.vaga.disponivel = True
+            reserva.vaga.save()
+
         reserva.save()
         return redirect("scan_con_lea", reserva_id=reserva.id)
 
@@ -241,13 +286,12 @@ def reservar_vaga(request, numero):
         messages.error(request, "Você já possui uma reserva ativa!")
         return redirect('reserva_bikes')
 
-    # Criar reserva sem bicicleta
-    Reserva.objects.create(
+    reserva = Reserva.objects.create(
         aluno=request.user,
-        bicicleta=None,  # agora permitido
+        bicicleta=None,
+        vaga=vaga,        # << liga reserva à vaga
         status="pendente"
     )
-
     # Marcar a vaga como ocupada
     vaga.disponivel = False
     vaga.save()
@@ -268,10 +312,19 @@ def main_segurancas(request):
     # Reserva para scan: pega a mais recente ou a primeira disponível
     reserva_para_scan = Reserva.objects.filter(status__in=['pendente','retirada']).first()
 
+    # Lista de reservas pendentes (para exibir IDs na página)
+    reservas_pendentes = (
+        Reserva.objects
+        .filter(status='pendente', vaga__isnull=False)
+        .select_related('vaga')
+        .order_by('vaga__numero')
+    )
+
     contexto = {
         'bikes_em_uso': bikes_em_uso,
         'reservas_ativas': reservas_ativas,
-        'reserva_para_scan': reserva_para_scan
+        'reserva_para_scan': reserva_para_scan,
+        'reservas_pendentes': reservas_pendentes,
     }
 
     return render(request, 'app_usuarios/seguranca.html', contexto)
