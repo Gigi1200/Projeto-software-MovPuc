@@ -1,4 +1,4 @@
- {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,12 +7,23 @@
   <title>Contato • MOVPUC</title>
   <link rel="stylesheet" href="/static/app_usuarios/css/contatos.css" />
   <link rel="stylesheet" href="/static/app_usuarios/css/cabEFoot.css">
-
 </head>
+
 <body>
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
   <header class="cab">
     <div class="logo">
-<a href="{% url 'index' %}" ><img src="/static/app_usuarios/img/logo.png" class="bike" alt=""></a>      <p class="brand">MOVPUC</p>
+      <a href="{% url 'index' %}">
+        <img src="/static/app_usuarios/img/logo.png" class="bike" alt="">
+      </a>
+      <p class="brand">MOVPUC</p>
     </div>
     <nav class="nav">
       <a href="{% url 'aluno' %}" class="navlink">aluno</a>
@@ -20,6 +31,7 @@
       <a href="{% url 'login' %}" class="perfil">👤</a>
     </nav>
   </header>
+
   <!-- Main -->
   <main>
     <section class="heading">
@@ -49,12 +61,16 @@
         </div>
 
         <div class="help">
-          <p>Suporte e dúvidas mais urgentes? <a href="mailto:suporte@movpuc.com">suporte@movpuc.com</a></p>
+          <p>Suporte e dúvidas mais urgentes? 
+            <a href="mailto:suporte@movpuc.com">suporte@movpuc.com</a>
+          </p>
         </div>
       </div>
 
       <!-- Formulário -->
-      <form class="form" action="#" method="post">
+      <form class="form" action="{% url 'contato' %}" method="post">
+        {% csrf_token %}
+
         <div class="field">
           <label for="nome">Nome</label>
           <input id="nome" name="nome" type="text" placeholder="Seu nome" required />
