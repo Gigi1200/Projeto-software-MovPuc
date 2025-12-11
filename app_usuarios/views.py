@@ -11,6 +11,10 @@ from .models import Reserva, Scan, Bicicleta, Perfil, Vaga
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from .utils import tipo_required
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
+
 
 import qrcode
 from io import BytesIO
@@ -86,9 +90,41 @@ def sobre(request):
 def erro_scan(request):
     return render(request, 'app_usuarios/erro_scan.html')
 
-
 def contato(request):
-    return render(request, 'app_usuarios/contato.html')
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        email = request.POST.get("email")
+        telefone = request.POST.get("telefone")
+        mensagem = request.POST.get("mensagem")
+
+        print(">>> ENTROU NO CONTATO <<<")
+        print(request.POST)  # só pra você ver no terminal
+
+        corpo = (
+            f"Nome: {nome}\n"
+            f"Email: {email}\n"
+            f"Telefone: {telefone}\n\n"
+            f"Mensagem:\n{mensagem}"
+        )
+
+        try:
+            send_mail(
+                subject=f"[MOVPUC] Novo contato de {nome}",
+                message=corpo,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=["contato@movpuc.com"],
+                fail_silently=False,
+            )
+            messages.success(request, "Mensagem enviada com sucesso! 🎉")
+        except Exception as e:
+            print("ERRO AO ENVIAR EMAIL:", e)
+            messages.error(request, "Ocorreu um erro ao enviar a mensagem. Tente novamente mais tarde.")
+
+        return redirect("contato")
+
+    # GET: só renderiza o formulário
+    return render(request, "app_usuarios/contato.html")
+
 
 
 @login_required(login_url='login')
