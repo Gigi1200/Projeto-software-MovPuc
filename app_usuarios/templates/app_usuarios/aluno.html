@@ -16,7 +16,9 @@
 <body>
   <header class="cab">
     <div class="logo">
-      <a href="{% url 'index' %}"><img src="{% static 'app_usuarios/img/logo.png' %}" class="bike" alt=""></a>
+      <a href="{% url 'index' %}">
+        <img src="{% static 'app_usuarios/img/logo.png' %}" class="bike" alt="">
+      </a>
       <p class="brand">MOVPUC</p>
     </div>
     <nav class="nav">
@@ -36,8 +38,23 @@
         <a class="btn btn-green" href="{% url 'reserva_bikes' %}">Reservar agora</a>
       </div>
 
+      <!-- Card do mapa com a nova imagem -->
       <figure class="mapa">
-        <img src="{% static 'app_usuarios/img/mapacampus.png' %}" alt="Mapa do campus">
+        <a
+          href="https://www.google.com/maps/dir/?api=1&destination=PUC-Rio,+Gávea,+Rio+de+Janeiro&travelmode=walking"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="map-card"
+        >
+          <img
+            src="{% static 'app_usuarios/img/ChatGPT Image 11 de dez. de 2025 13_08_17.png' %}"
+            alt="Mapa destacando a localização da PUC-Rio"
+            class="map-image"
+          >
+        </a>
+        <figcaption class="map-caption">
+          Clique no mapa para abrir a rota até a PUC-Rio no Google Maps.
+        </figcaption>
       </figure>
     </section>
 
@@ -54,7 +71,7 @@
         </div>
         <div class="card card-green">
           <p class="kpi__numero">{{ reservas_ativas }}</p>
-          <p class="kpi__texto">Suas Reservas ativas </p>
+          <p class="kpi__texto">Suas Reservas ativas</p>
         </div>
       </div>
     </section>
