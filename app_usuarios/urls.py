@@ -20,6 +20,17 @@ urlpatterns = [
     path("gerar_qr/<int:reserva_id>/", views.gerar_qr, name="gerar_qr"),
     path("scan/<int:reserva_id>/", views.scan_reserva, name="scan_reserva"),
     path("registrar_scan/<int:reserva_id>/<str:tipo>/", views.registrar_scan, name="registrar_scan"),
+        path(
+        "scan_concluded/entrada/<int:reserva_id>/",
+        views.scan_concluded_enter,
+        name="scan_con_ent",
+    ),
+    path(
+        "scan_concluded/saida/<int:reserva_id>/",
+        views.scan_concluded_leave,
+        name="scan_con_lea",
+    ),
+
 
     path('esqueci-senha/', auth_views.PasswordResetView.as_view(
         template_name='app_usuarios/esqueci_senha.html',
