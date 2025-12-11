@@ -315,7 +315,7 @@ def main_segurancas(request):
     # Lista de reservas pendentes (para exibir IDs na página)
     reservas_pendentes = (
         Reserva.objects
-        .filter(status='pendente', vaga__isnull=False)
+        .filter(status__in=['pendente', 'retirada'], vaga__isnull=False)
         .select_related('vaga')
         .order_by('vaga__numero')
     )
