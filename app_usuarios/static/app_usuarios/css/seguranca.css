@@ -108,6 +108,56 @@
   color: #374151;
 }
 
+.lista-reservas {
+  list-style: none;
+  padding: 0;
+  margin: 2rem auto 0;
+  max-width: 960px;
+}
+
+.item-reserva {
+  display: flex;
+  align-items: center;          /* alinha verticalmente */
+  justify-content: space-between; /* texto de um lado, botão do outro */
+  gap: 32px;
+  background: #ffffff;
+  padding: 24px 32px;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* texto da reserva */
+.item-reserva span {
+  font-size: 18px;
+  font-weight: 500;
+  color: #222;
+}
+
+/* botão de escanear */
+.item-reserva .btn.btn-primary.btn-small {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 32px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .item-reserva {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-reserva .btn.btn-primary.btn-small {
+    align-self: stretch;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+
 @media (max-width: 540px) {
   .cab {
     padding: 0 18px;
